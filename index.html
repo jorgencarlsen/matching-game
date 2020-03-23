@@ -6,6 +6,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="card-slector-popup">
+        <form action="" class="selector-form">
+            <h1>Welcome to the Matching Game!</h1>
+            <label for="cards">How many cards would you like to play with?</label>
+            <input type="range" min="8" max="20" step="4" value="8" name="cards" oninput="getRangeValue(this.value)">
+            <span id="currentvalue">8</span>
+            <input type="button" value="Ready?" id="cardselectorbutton">
+        </form>
+    </div>
+    <div class="gameboard">
+        
+
+
+    </div>
 
 
 </body>

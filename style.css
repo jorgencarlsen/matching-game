@@ -1,0 +1,16 @@
+.gameboard {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.card {
+    background: tomato;
+    padding: 10px;
+    width: 150px;
+    height: 100px;
+    margin-top: 10px;
+}
