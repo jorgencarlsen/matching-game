@@ -1,16 +1,79 @@
+body {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0px;
+}
+
+h2 {
+    font-weight: 100;
+}
+
+text {
+    font-weight: 100;
+}
+
+.selector-form {
+   font-weight: 100;
+   
+}
+
+label {
+    padding: 10px;
+}
+
+
+span {
+    padding: 10px;
+}
+
 .gameboard {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    padding: 0;
-    margin: 0;
+    padding-top: 10px;
+    margin: 0px;
     list-style: none;
+    max-width: 800px;
 }
 
 .card {
-    background: tomato;
+    background: rgba(97, 112, 115, 1);
+    flex: 1 1 auto;
+    padding: 0px;
+    width:200px;
+    height:200px;
+    margin-top: 0px;
+    outline: 1px solid;
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: black; */
+}
+
+.card:hover {
+    background: rgb(109, 130, 133);
+}
+
+#cardselectorbutton {
+    font-weight: 200;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    background: #F78080;
+    justify-content: top;
+    height: 40px;
+    width: 75px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 2px;
     padding: 10px;
-    width: 150px;
-    height: 100px;
-    margin-top: 10px;
+}
+
+#cardselectorbutton:hover {
+    height: 40px;
+    width: 75px;
+    background: #F75454;
+    
+    
 }

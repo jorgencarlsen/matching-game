@@ -27,15 +27,26 @@ function shuffle(array) {
     return array;
   }
 
-let colors = ['red', 'red', 'green', 'green', 'blue', 'blue', 'yellow', 'yellow'];
-const shuffledColors = shuffle(colors);
+//color variables
+const color1 = 'rgba(23, 26, 33, 1)';
+const color2 = 'rgba(97, 112, 115, 1)';//default card color
+const color3 = 'rgba(122, 147, 172, 1)';
+const color4 = 'rgba(146, 188, 234, 1)';
+const color5 = 'rgba(175, 179, 247, 1)';
+const color6 = '#A71D31';
+const color7 = '#3F0D12';
 
-//create an array that collects card objs that contain their colors.
+//create array of all the colors except the default color;
+let colors = [color1, color1, color5, color5, color3, color3, color4, color4];
+
+//shuffle the color array.
+let shuffledColors = [];
+
+//create an object that collects card objs that contain their colors.
 let cardData = {};
 
-
 //function to change color of card.
-function changeColor(e){
+function changeColor(){
     cardId = this.id;
     this.style.background = cardData[cardId].color;
     cardData[cardId].open = true;
@@ -58,38 +69,39 @@ function changeColor(e){
     function backGroundWhite(card1, card2){
         card1.style.background = "white";
         card2.style.background = "white";
+        card1.style.outline = '0px';
+        card2.style.outline = '0px';
     }
 
-    //sets two cards background color to tomato
-    function backGroundTomato(card1, card2){
-        card1.style.background = "tomato";
-        card2.style.background = "tomato";
+    //sets two cards background color to default
+    function backGroundDefault(card1, card2){
+        card1.style.background = color2;
+        card2.style.background = color2;
     }
 
     //get the open cards elements
     const card1 = document.getElementById(openCards[0]);
     const card2 = document.getElementById(openCards[1]);
-   console.log(openCards);
 
-    if (openCards.length < 2){
-       
+   //if only one card has been flipped, do nothing.
+   if (openCards.length < 2){
         return;
-
     } else {
-         if (cardData[openCards[0]].color === cardData[openCards[1]].color) {
-         
-        //if cardData.openCards[0].color equals cardData.openCards[1].color
-           //set card 1 and card 2 to background color of white after 2 seconds.
-         setTimeout(backGroundWhite, 1400, card1, card2);
-         cardData[openCards[0]].open = false;
-         cardData[openCards[1]].open = false;
+        if (cardData[openCards[0]].color === cardData[openCards[1]].color) {
         
+            //if cardData.openCards[0].color equals cardData.openCards[1].color
+                //set card 1 and card 2 to background color of white after 2 seconds.
+            setTimeout(backGroundWhite, 300, card1, card2);
+            cardData[openCards[0]].open = false;
+            cardData[openCards[1]].open = false;
+            card1.removeEventListener('click', changeColor);
+            card2.removeEventListener('click', changeColor);
         } else { 
-        //else
-          //set card 1 and card 2 to background color of tomato after 2 seconds.
-         setTimeout(backGroundTomato, 1400, card1, card2);
-         cardData[openCards[0]].open = false;
-         cardData[openCards[1]].open = false;
+            //else
+            //set card 1 and card 2 to background color of tomato after 2 seconds.
+            setTimeout(backGroundDefault, 500, card1, card2);
+            cardData[openCards[0]].open = false;
+            cardData[openCards[1]].open = false;
         }
     }
     
@@ -100,8 +112,10 @@ function createCards(){
     //Get number of cards from input
     const currentValue = document.getElementById('currentvalue');
     const numCards = currentValue.innerHTML;
-
+    
+    //get the gameboard html
     const gameBoard = document.querySelector('.gameboard');
+    
     //check if the number of divs in the gameBoard is equal to the current value and return if so.
     if (gameBoard.childElementCount === currentValue){
         return;
@@ -110,38 +124,41 @@ function createCards(){
         //if no
             //delete all the elements in the game board and run the loop
     let firstCard = gameBoard.firstElementChild;
+   
     while (firstCard){
         firstCard.remove();
         firstCard = gameBoard.firstElementChild;
     }
     
-    
-
-        //create a number of cards(divs) equal to input
-        for (let i = 1; i <= numCards; i++){
-            newCard = document.createElement('div');
-            newCard.setAttribute('class', 'card');
-            newCard.setAttribute('id', i);
-
-            //Add event listener to change color on click
-            newCard.addEventListener('click', changeColor);
-            
-            //add the card to the gameboard
-            gameBoard.appendChild(newCard);
-            
-            //assign a color to the card
-            cardData[i] = {
-                color: shuffledColors.pop(),
-                open: false
-            };
-        
-            
+    //if the number of cards is 12
+        //add two more colors to the color array
+    if (numCards === '12'){
+        for (i = 0; i < 2; i++){
+            colors.push(color6);
+            colors.push(color7);
         }
+    }
 
-            //give each div a random color and make two cards have that color
-                //distribute the cards randomly on the page
+    shuffledColors = shuffle(colors);
+
+    //create a number of cards(divs) equal to input
+    for (let i = 1; i <= numCards; i++){
+        newCard = document.createElement('div');
+        newCard.setAttribute('class', 'card');
+        newCard.setAttribute('id', i);
+
+        //Add event listener to change color on click
+        newCard.addEventListener('click', changeColor);
         
-    
+        //add the card to the gameboard
+        gameBoard.appendChild(newCard);
+        
+        //assign a color to the card
+        cardData[i] = {
+            color: shuffledColors.pop(),
+            open: false
+        };   
+    }  
 }
 
 const cardNumSubmitButton = document.getElementById('cardselectorbutton');
